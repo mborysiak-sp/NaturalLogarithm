@@ -7,9 +7,8 @@ namespace NaturalLogarithm
 {
     class Logarithm : Support
     {
-        private double X = new double();
-        private double Log = new double();
-        private int N = new int();
+        private double X, Log;
+        private int N;
 
         public Logarithm(double x, int n)
         {
@@ -30,22 +29,22 @@ namespace NaturalLogarithm
 
         public double[] CalculateNaiveFromStart()
         {
-            return SumResultsFromStart(CalculateNaive());
+            return CalculateErrors(SumResultsFromStart(CalculateNaive()));
         }
 
         public double[] CalculateNaiveFromEnd()
         {
-            return SumResultsFromEnd(CalculateNaive());
+            return CalculateErrors(SumResultsFromEnd(CalculateNaive()));
         }
 
         public double[] CalculateSmartFromStart()
         {
-            return SumResultsFromStart(CalculateSmart());
+            return CalculateErrors(SumResultsFromStart(CalculateSmart()));
         }
 
         public double[] CalculateSmartFromEnd()
         {
-            return SumResultsFromEnd(CalculateSmart());
+            return CalculateErrors(SumResultsFromEnd(CalculateSmart()));
         }
 
         private double[] CalculateNaive()
@@ -54,7 +53,7 @@ namespace NaturalLogarithm
 
             for (int i = 1; i <= N; i++)
             {
-                results[i - 1] = Power(-1, i + 1) / i * Power(X - 1, i);
+                results[i - 1] = PowerOfOne(-1, i + 1) / i * Power(X - 1, i);
             }
 
             return results;

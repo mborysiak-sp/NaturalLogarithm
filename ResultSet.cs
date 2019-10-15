@@ -7,13 +7,13 @@ namespace NaturalLogarithm
 
     class ResultSet
     {
-        public double[] NaiveFromStart { get => NaiveFromStart; set => NaiveFromStart = value; }
-        public double[] NaiveFromEnd { get => NaiveFromEnd; set => NaiveFromEnd = value; }
-        public double[] SmartFromEnd { get => SmartFromEnd; set => SmartFromEnd = value; }
-        public double[] SmartFromStart { get => SmartFromStart; set => SmartFromStart = value; }
-        public double X { get => X; set => X = value; }
+        public double[] NaiveFromStart;
+        public double[] NaiveFromEnd;
+        public double[] SmartFromEnd;
+        public double[] SmartFromStart;
+        public double X;
 
-        public ResultSet(double x, double[] naiveFromStart, double[] naiveFromEnd, double[] smartFromEnd, double[] smartFromStart)
+        public ResultSet(double x, double[] naiveFromStart, double[] naiveFromEnd, double[] smartFromStart, double[] smartFromEnd)
         {
             X = x;
             NaiveFromStart = naiveFromStart;
@@ -21,6 +21,8 @@ namespace NaturalLogarithm
             SmartFromEnd = smartFromEnd;
             SmartFromStart = smartFromStart;
         }
+        
+        public ResultSet() { }
 
     }
 }

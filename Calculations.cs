@@ -8,7 +8,7 @@ namespace NaturalLogarithm
     {
         private double StartX, EndX;
         private int XCount, N;
-        private Dictionary<double, double[]> ResultSet;
+        public List<ResultSet> ResultList;
 
         public Calculations(double startX, double endX, int xCount, int n)
         {
@@ -20,14 +20,22 @@ namespace NaturalLogarithm
 
         public List<ResultSet> CalculateResults()
         {
-            double x = StartX + (EndX / XCount);
-            while (x < EndX)
+            ResultList = new List<ResultSet>();
+
+            double x = StartX + (EndX - StartX) / XCount;
+
+            while (x < (EndX - (EndX - StartX) / XCount))
             {
                 Logarithm l = new Logarithm(x, N);
-                l.CalculateNaiveFromEnd
-            }
-            
-        }
 
+                ResultSet rs = new ResultSet(x, l.CalculateNaiveFromStart(), l.CalculateNaiveFromEnd(), l.CalculateSmartFromStart(), l.CalculateSmartFromEnd());
+
+                ResultList.Add(rs);
+
+                x += (EndX - StartX) / XCount;
+            }
+
+            return ResultList;
+        }
     }
 }
