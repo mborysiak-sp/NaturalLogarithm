@@ -101,7 +101,7 @@ namespace NaturalLogarithm
                 sums[i] = sum;
             }
 
-            //sums = Reverse(sums);
+            Array.Reverse(sums);
 
             return sums;
         }
