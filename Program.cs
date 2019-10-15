@@ -6,18 +6,19 @@ namespace NaturalLogarithm
     {
         static void Main(string[] args)
         {
-            Logarithm l = new Logarithm();
+            double x = 1.5;
+            int n = 11;
+            Logarithm l = new Logarithm(x, n);
             Print p = new Print();
 
-            int x = 100, n = 100;
             Console.Out.WriteLine("Naive from start:");
-            p.PrintCsv("NaiveStart", l.CalculateNaiveFromStart(x, n));
+            p.PrintCsv("NaiveStart", l.CalculateNaiveFromStart());
             Console.Out.WriteLine("Naive from end:");
-            //p.PrintCsv("NaiveEnd", l.CalculateNaiveFromEnd(x, n));
+            p.PrintCsv("NaiveEnd", l.CalculateNaiveFromEnd());
             Console.Out.WriteLine("Smart from start:");
-            p.PrintCsv("SmartStart", l.CalculateSmartFromStart(x, n));
+            p.PrintCsv("SmartStart", l.CalculateSmartFromStart());
             Console.Out.WriteLine("Smart from end:");
-           //p.PrintCsv("SmartEnd", l.CalculateSmartFromEnd(x, n));
+            p.PrintCsv("SmartEnd", l.CalculateSmartFromEnd());
         }
     }
 }

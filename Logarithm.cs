@@ -6,10 +6,21 @@ using System.Text;
 namespace NaturalLogarithm
 {
     class Logarithm : Support
-    {        
-        private double CalculateError(double value, double sum)
+    {
+        private double X = new double();
+        private double Log = new double();
+        private int N = new int();
+
+        public Logarithm(double x, int n)
         {
-            return Math.Abs(CalculateImplementedLogarithm(value) - sum);
+            X = x;
+            Log = CalculateImplementedLogarithm(x);
+            N = n;
+        }
+
+        private double CalculateError(double sum)
+        {
+            return Math.Abs(Log - sum);
         }
 
         private double CalculateImplementedLogarithm(double value)
@@ -17,111 +28,93 @@ namespace NaturalLogarithm
             return Math.Log(value);
         }
 
-        public double[,] CalculateNaiveFromStart(int x, int n)
+        public double[] CalculateNaiveFromStart()
         {
-            double[,] results = new double[x, n];
-            double value = 2 / x;
+            return SumResultsFromStart(CalculateNaive());
+        }
 
-            for(int j = 0; j < x; j++)
+        public double[] CalculateNaiveFromEnd()
+        {
+            return SumResultsFromEnd(CalculateNaive());
+        }
+
+        public double[] CalculateSmartFromStart()
+        {
+            return SumResultsFromStart(CalculateSmart());
+        }
+
+        public double[] CalculateSmartFromEnd()
+        {
+            return SumResultsFromEnd(CalculateSmart());
+        }
+
+        private double[] CalculateNaive()
+        {
+            double[] results = new double[N];
+
+            for (int i = 1; i <= N; i++)
             {
-                for (int i = 1; i < n; i++)
-                {
-                    results[j, i - 1] = Power(-1, i + 1) / i * Power(value - 1, i);
-                }
-                value += 2 / x;
+                results[i - 1] = Power(-1, i + 1) / i * Power(X - 1, i);
             }
 
-            return SumResultsFromStart(x, results);
-        }
-        
-        public double[,] CalculateNaiveFromEnd(int x, int n)
-        {
-            double[,] results = new double[x, n];
-            double value = 2 - (2/x);
-            for (int j = x - 1; j >= 0; j--)
-            {
-                for (int i = results.Length; i >= 1; i--)
-                {
-                    results[j, i - 1] = Power(-1, i + 1) / i * Power(x - 1, i);
-                }
-                value -= x / 2;
-            }
-
-            return SumResultsFromEnd(x, results);
-        }
-
-        public double[,] CalculateSmartFromStart(int x, int n)
-        {
-            return SumResultsFromStart(x, CalculateSmart(x, n));
-        }
-
-        public double[,] CalculateSmartFromEnd(int x, int n)
-        {
-            return SumResultsFromEnd(x, CalculateSmart(x, n));
-        }
-
-        private double[,] CalculateSmart(int x, int n)
-        {
-            double tempSum = x - 1;
-
-            double[,] results = new double[x, n];
-            results[0, 0] = tempSum;
-
-            double value = 2 / x;
-
-            for (int j = 0; j < x; j++)
-            {
-                for (int i = 1; i < n; i++)
-                {
-                    tempSum *= -(i * (value - 1) / (i + 1));
-                    results[j, i] = tempSum;
-                }
-                value += 2 / x;
-            }
-            
             return results;
         }
 
-        private double[,] SumResultsFromStart(int x, double[,] results)
+        private double[] CalculateSmart()
+        {
+            double tempSum = X - 1;
+
+            double[] results = new double[N];
+            results[0] = tempSum;
+
+            for (int i = 1; i < N; i++)
+            {
+                tempSum *= -(i * (X - 1) / (i + 1));
+                results[i] = tempSum;
+            }
+
+            return results;
+        }
+        
+        private double[] SumResultsFromStart(double[] results)
         {
             double sum = 0;
-            double[,] errors = new double[results.GetLength(0), results.GetLength(1)];
-
-            for (int j = 0; j < results.GetLength(0); j++)
+            double[] sums = new double[N];
+               
+            for (int i = 0; i < N; i++)
             {
-                for (int i = 0; i < results.GetLength(1); i++)
-                {
-                    sum += results[j, i];
-                    errors[j, i] = CalculateError(x, sum);
-                }
+                sum += results[i];
+                 sums[i] = sum;
             }
-            
 
-            return errors;
+            return sums;
         }
 
-        private double[,] SumResultsFromEnd(int x, double[,] results)
+        private double[] SumResultsFromEnd(double[] results)
         {
+            double[] sums = new double[N];
             double sum = 0;
-            double[,] errors = new double[results.GetLength(0), results.GetLength(1)];
-            double[,] sums = new double[results.GetLength(0), results.GetLength(1)];
 
-            for (int j = results.GetLength(0) - 1; j >= 0; j--)
+            for (int i = N - 1; i >= 0; i--)
             {
-                for (int i = results.GetLength(1) - 1; i >= 0; i--)
-                {
-                    sum += results[j, i];
-                    sums[j, i] = sum;
-                }
+                sum += results[i];
+                sums[i] = sum;
             }
 
-            for (int j = 0; j < results.GetLength(0); j++)
-            {
-                for (int i = 0; i < results.GetLength(1); i++)
-                    errors[j, i] = CalculateError(x, sums[j, i]);
-            }
-            
+            //sums = Reverse(sums);
+
+            return sums;
+        }
+
+        private double[] CalculateErrors(double[] sums)
+        {
+            double[] errors = new double[N];
+
+            for (int i = 0; i < N; i++)
+                errors[i] = CalculateError(sums[i]);
+
             return errors;
         }
     }
 }
+
