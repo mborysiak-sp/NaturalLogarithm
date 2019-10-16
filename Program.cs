@@ -6,14 +6,15 @@ namespace NaturalLogarithm
     {
         static void Main(string[] args)
         {
-            Calculations calc = new Calculations(0, 2, 1000001, 10);
+            Calculations calc = new Calculations(0, 2, 1000000, 10);
             Print p = new Print();
             var watch = System.Diagnostics.Stopwatch.StartNew();
             calc.CalculateResults();
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             Console.Out.WriteLine(elapsedMs);
-            p.PrintLastErrors("lastErrors", calc.ResultList);
+            //p.PrintLastErrors("lastErrors", calc.ResultList);
+            p.PrintApproxmation(1000, calc.ResultList, "approximation");
             //Console.Out.WriteLine("Naive from start:");
             //p.PrintCsv("NaiveStart", l.CalculateNaiveFromStart());
             //Console.Out.WriteLine("Naive from end:");

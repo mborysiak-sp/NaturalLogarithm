@@ -83,7 +83,7 @@ namespace NaturalLogarithm
             for (int i = 0; i < N; i++)
             {
                 sum += results[i];
-                 sums[i] = sum;
+                sums[i] = sum;
             }
 
             return sums;
@@ -114,6 +114,8 @@ namespace NaturalLogarithm
 
             return errors;
         }
+
+
     }
 }
 

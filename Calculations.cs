@@ -4,7 +4,7 @@ using System.Text;
 
 namespace NaturalLogarithm
 {
-    class Calculations
+    class Calculations : Support
     {
         private double StartX, EndX;
         private int XCount, N;

@@ -5,7 +5,7 @@ using System.Text;
 namespace NaturalLogarithm
 {
 
-    class ResultSet
+    class ResultSet : Support
     {
         public double[] NaiveFromStart;
         public double[] NaiveFromEnd;
@@ -24,5 +24,43 @@ namespace NaturalLogarithm
         
         public ResultSet() { }
 
+
+        private int GetPrecisionFor(string name)
+        {
+            int n = NaiveFromStart.Length - 1;
+
+            switch (name)
+            {
+                case "NaiveFromStart":
+                    for (int i = 0; i < n; i++)
+                        if (NaiveFromStart[i] <= Power(10, -6))
+                            return i;
+                    break;
+                case "SmartFromStart":
+                    for (int i = 0; i < n; i++)
+                        if (SmartFromStart[i] <= Power(10, -6))
+                            return i;
+                    break;
+                case "NaiveFromEnd":
+                    for (int i = 0; i < n; i++)
+                        if (NaiveFromEnd[i] <= Power(10, -6))
+                            return i;
+                    break;
+                case "SmartFromEnd":
+                    for (int i = 0; i < n; i++)
+                        if (SmartFromEnd[i] <= Power(10, -6))
+                            return i;
+                    break;
+                default:
+                    return -1;
+            }
+
+            return -1;
+        }
+
+        //public Tuple<int, double, double, double, double> GetPrecisionPerX()
+        //{
+        //    return new Tuple<>
+        //}
     }
 }
