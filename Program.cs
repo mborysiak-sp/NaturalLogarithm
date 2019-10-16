@@ -6,10 +6,12 @@ namespace NaturalLogarithm
     {
         static void Main(string[] args)
         {
-            Calculations calc = new Calculations(0, 2, 1000000, 10);
+            Calculations calc = new Calculations(0, 2, 1000000, 100);
             Print p = new Print();
+            //Logarithm l = new Logarithm(0.001, 1000000);
             var watch = System.Diagnostics.Stopwatch.StartNew();
             calc.CalculateResults();
+            //p.PrintCsv("jedenX", l.CalculateNaiveFromStart());
             watch.Stop();
             var elapsedMs = watch.ElapsedMilliseconds;
             Console.Out.WriteLine(elapsedMs);

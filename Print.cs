@@ -8,14 +8,14 @@ namespace NaturalLogarithm
 {
     class Print
     {
-        //public void PrintCsv(string fileName, ResultSet records)
-        //{
-        //    using(var writer = new StreamWriter($"{fileName}.csv"))
-        //    using(var csv = new CsvWriter(writer))
-        //    {
-        //        //csv.WriteRecords(records);
-        //    }
-        //}
+        public void PrintCsv(string fileName, double[] records)
+        {
+            using (var writer = new StreamWriter($"{fileName}.csv"))
+            using (var csv = new CsvWriter(writer))
+            {
+                csv.WriteRecords(records);
+            }
+        }
 
         public void PrintLastErrors(string name, List<ResultSet> rsList)
         {
@@ -35,6 +35,7 @@ namespace NaturalLogarithm
             }
         }
 
+        //public void PrintAllErrors(string name, List<ResultSet>)
         public void PrintApproxmation(int n, List<ResultSet> rsList, string name)
         {
             using (var w = new StreamWriter(name + ".csv"))
