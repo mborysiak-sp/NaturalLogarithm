@@ -49,8 +49,11 @@ namespace NaturalLogarithm
 
                 for (int i = 0; i < rsList.Count; i += n)
                 {
-                    start = i;
-                    end = i + n;
+                    start = rsList[i].X;
+                    if (i + n >= rsList.Count)
+                        end = rsList[rsList.Count - 1].X;
+                    else
+                        end = rsList[i + n].X;
                     for (int j = 0; j < n && (j + i) < rsList.Count; j++)
                     {
                         int index = rsList[i + j].NaiveFromStart.Length - 1;
@@ -65,7 +68,10 @@ namespace NaturalLogarithm
                     aEnd /= n;
                     bEnd /= n;
 
-                    line = string.Format($"{start} - {end}, {aStart}, {bStart}, {aEnd}, {bEnd}");
+                    string s = string.Format("{0:0.000}", start);
+                    string e = string.Format("{0:0.000}", end);
+
+                    line = string.Format($"{s} - {e}, {aStart}, {bStart}, {aEnd}, {bEnd}");
                     w.WriteLine(line);
                     w.Flush();
                 }
@@ -73,6 +79,21 @@ namespace NaturalLogarithm
 
         }
 
+        public void PrintPositions(List<ResultSet> rsList, string fileName)
+        {
+            using (var w = new StreamWriter(fileName + ".csv"))
+            {
+                var line = string.Format("X, NaiveFromStart");
+                w.WriteLine(line);
+                w.Flush();
 
+                foreach (ResultSet rs in rsList)
+                {
+                    line = string.Format($"{rs.X},{rs.GetPrecisionForNFS()}");
+                    w.WriteLine(line);
+                    w.Flush();
+                }
+            }
+        }
     }
 }

@@ -24,43 +24,53 @@ namespace NaturalLogarithm
         
         public ResultSet() { }
 
-
-        private int GetPrecisionFor(string name)
+        public int GetPrecisionForNFS()
         {
             int n = NaiveFromStart.Length - 1;
+            double power = Convert.ToDouble("0.000001");
 
-            switch (name)
-            {
-                case "NaiveFromStart":
-                    for (int i = 0; i < n; i++)
-                        if (NaiveFromStart[i] <= Power(10, -6))
-                            return i;
-                    break;
-                case "SmartFromStart":
-                    for (int i = 0; i < n; i++)
-                        if (SmartFromStart[i] <= Power(10, -6))
-                            return i;
-                    break;
-                case "NaiveFromEnd":
-                    for (int i = 0; i < n; i++)
-                        if (NaiveFromEnd[i] <= Power(10, -6))
-                            return i;
-                    break;
-                case "SmartFromEnd":
-                    for (int i = 0; i < n; i++)
-                        if (SmartFromEnd[i] <= Power(10, -6))
-                            return i;
-                    break;
-                default:
-                    return -1;
-            }
+            for (int i = 0; i <= n; i++)
+                if (NaiveFromStart[i] <= power)
+                    return i;
+            return -1;    
+        }
 
+        public int GetPrecisionForSFS()
+        {
+            int n = NaiveFromStart.Length - 1;
+            double power = Convert.ToDouble("0.000001");
+
+            for (int i = 0; i <= n; i++)
+                if (SmartFromStart[i] <= power)
+                    return i;
             return -1;
         }
 
-        //public Tuple<int, double, double, double, double> GetPrecisionPerX()
+        //public int GetPrecisionForSFE()
         //{
-        //    return new Tuple<>
+        //    int n = NaiveFromStart.Length - 1;
+        //    double power = Convert.ToDouble("0.000001");
+
+        //    for (int i = 0; i <= n; i++)
+        //        if (SmartFromEnd[i] <= power)
+        //            return i;
+        //    return -1;
+        //}
+
+        //public int GetPrecisionForNFE()
+        //{
+        //    int n = NaiveFromStart.Length - 1;
+        //    double power = Convert.ToDouble("0.000001");
+
+        //    for (int i = 0; i <= n; i++)
+        //    {
+        //        //if (SmartFromEnd[i] < 0.001)
+        //        //    Console.Out.WriteLine($"i: {i} power = {power} | {SmartFromEnd[i]} = value");
+        //        if (SmartFromEnd[i] <= power)
+        //            return i;
+        //    }
+
+        //    return -1;
         //}
     }
 }

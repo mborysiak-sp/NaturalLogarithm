@@ -27,12 +27,12 @@ namespace NaturalLogarithm
             while (x < (EndX - (EndX - StartX) / XCount))
             {
                 Logarithm l = new Logarithm(x, N);
-
+                
                 ResultSet rs = new ResultSet(x, l.CalculateNaiveFromStart(), l.CalculateNaiveFromEnd(), l.CalculateSmartFromStart(), l.CalculateSmartFromEnd());
 
                 ResultList.Add(rs);
-
                 x += (EndX - StartX) / XCount;
+                Console.Out.WriteLine($"x = {x}");
             }
 
             return ResultList;
