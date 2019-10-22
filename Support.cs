@@ -6,30 +6,16 @@ namespace NaturalLogarithm
 {
     class Support
     {
-        public double[] Reverse(double[] table)
+        public double PowerOfOne(double x, int n)
         {
-            int n = table.Length - 1;
-            double temp;
-            for(int i = 0; i < table.Length; i++)
-            {
-                temp = table[n];
-                table[n] = table[i];
-                table[i] = temp;
-                n--;
-            }
-            return table;
+            if (x == -1)
+                if (n % 2 == 1)
+                    return -1;
+            return 1;
         }
 
         public double Power(double x, int n)
         {
-            if (x == 1)
-                return 1;
-
-            if (x == -1)
-                if (n % 2 == 0)
-                    return 1;
-                else return -1;
-
             if (n == 0)
                 return 1;
 
